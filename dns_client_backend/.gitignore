@@ -1,0 +1,21 @@
+# Compiled output
+target
+
+# Dependency directory
+Cargo.lock
+
+# Generated documentation
+doc
+
+# Editor and IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build artifacts
+*.rmeta
+
+# OS or editor-specific files
+.DS_Store
+Thumbs.db
