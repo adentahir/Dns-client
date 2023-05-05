@@ -1,11 +1,11 @@
 # Compiled output
-target
+/target/
 
 # Dependency directory
 Cargo.lock
 
 # Generated documentation
-doc
+/doc/
 
 # Editor and IDE files
 .vscode/
