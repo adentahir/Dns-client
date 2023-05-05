@@ -11,12 +11,29 @@ env:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
       
+    - name: Cache cargo registry
+      uses: actions/cache@v2
+      with:
+        path: ~/.cargo/registry
+        key: ${{ runner.os }}-cargo-registry-${{ hashFiles('**/Cargo.lock') }}
+        
+    - name: Cache cargo index
+      uses: actions/cache@v2
+      with:
+        path: ~/.cargo/git
+        key: ${{ runner.os }}-cargo-git-${{ hashFiles('**/Cargo.lock') }}
+
+    - name: Cache cargo build
+      uses: actions/cache@v2
+      with:
+        path: target
+        key: ${{ runner.os }}-cargo-build-target-${{ hashFiles('**/Cargo.lock') }}
+
     - name: Install Rust
       uses: actions-rs/toolchain@v1
       with:
@@ -28,7 +45,7 @@ jobs:
       run: cargo install cargo-tarpaulin
 
     - name: Run tests and generate coverage report
-      run: cargo tarpaulin --manifest-path Dns_client/Cargo.toml --out Xml
+      run: cargo tarpaulin --manifest-path ./Dns_client/Cargo.toml --out Xml
 
     - name: Upload coverage to GitHub Artifacts
       uses: actions/upload-artifact@v2
